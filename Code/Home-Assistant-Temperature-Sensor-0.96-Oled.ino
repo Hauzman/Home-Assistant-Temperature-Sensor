@@ -31,35 +31,40 @@
 #define OTA_UPGRADES 1
 // #define OTA_SERVER "www.example.com"
 
-// The GPIO2 pin is connected to two things on the Hauzman Thermometer:
-//
-// - Internally on the ESP-12E module, it is connected to a blue
-//   status LED, that lights up whenever the pin is driven low.
-//
-// - On the Hauzman Thermometer board, it is connected to the DHT22
-//   temperature and humidity sensor.  Whenever a measurements is
-//   made, both the ESP8266 on the ESP-12E module and the DHT22 sensor
-//   drives the pin low.  One measurement drives it low several times:
-//
-//      - At least 1 ms by the ESP8266 to start the measurement.
-//      - 80 us by the DHT22 to acknowledge
-//      - 50 us by the DHT22 for each bit transmitted, a total of 40 times
-//
-//   In total, this means it is driven low more than 3 ms for each
-//   measurement.  This results in a blue flash from the status LED
-//   that is clearly visible, especially in a dark room.
-//
-// Unfortunately, there seems to be no way to get rid of this blue
-// flash in software.  But we can mask it by turning on the blue LED
-// all the time.  The human eye won't detect that it is turned off
-// briefly during the measurement.  Technically, we still follow the
-// letter of the data sheet, as that only requires the start pulse to
-// be "at least 1-10 ms", and 10 seconds is clearly "at least 10
-// ms". :-)
-//
-// This hack will likely increase the power consumption slightly.
-// #define ESP12_BLUE_LED_ALWAYS_ON
+/*
+The GPIO2 pin is connected to two things on the Hauzman Thermometer:
 
+ - Internally on the ESP-12E module, it is connected to a blue
+   status LED, that lights up whenever the pin is driven low.
+
+ - On the Hauzman Thermometer board, it is connected to the DHT22
+   temperature and humidity sensor.  Whenever a measurements is
+   made, both the ESP8266 on the ESP-12E module and the DHT22 sensor
+   drives the pin low.  One measurement drives it low several times:
+    - You can change the name also from the device
+    
+      - At least 1 ms by the ESP8266 to start the measurement.
+      - 80 us by the DHT22 to acknowledge
+      - 50 us by the DHT22 for each bit transmitted, a total of 40 times
+
+   In total, this means it is driven low more than 3 ms for each
+   measurement.  This results in a blue flash from the status LED
+   that is clearly visible, especially in a dark room.
+
+ Unfortunately, there seems to be no way to get rid of this blue
+ flash in software.  But we can mask it by turning on the blue LED
+ all the time.  The human eye won't detect that it is turned off
+ briefly during the measurement.  Technically, we still follow the
+ letter of the data sheet, as that only requires the start pulse to
+ be "at least 1-10 ms", and 10 seconds is clearly "at least 10
+ ms". :-)
+ 
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+*/
 #include <ESP8266WiFi.h>          //https://github.com/esp8266/Arduino
 #include <ESP8266httpUpdate.h>
 
@@ -143,12 +148,13 @@ float sensorHumidity = 0;
 uint16_t sensorAmbientLight = 0;
 
 //define your default values here, if there are different values in config.json, they are overwritten.
-char mqtt_server[40] = "192.168.1.109";
+char mqtt_server[40] = "192.168.1.1";
 char mqtt_port[6] = "1883";
 char workgroup[32] = "workgroup";
+
 // MQTT username and password
-char username[20] = "Dht";
-char password[20] = "Bubulina1";
+char username[20] = "MQTT username";
+char password[20] = "MQTT Password";
 #ifdef HOME_ASSISTANT_DISCOVERY
 char ha_name[32+1] = "homeassistant";        // Make sure the machineId fits.
 #endif
@@ -486,7 +492,7 @@ void setup()
     //if it does not connect it starts an access point with the specified name
     //here  "AutoConnectAP"
     //and goes into a blocking loop awaiting configuration
-    if (!wifiManager.autoConnect("Hauzman Thermometer", ""))
+    if (!wifiManager.autoConnect("Hauzman Thermometer", "")) // Here you can change the AP name 
     {
         digitalWrite(pinAlarm, LOW);
         Serial.println("failed to connect and hit timeout");
