@@ -27,3 +27,9 @@ DHT | [GIT](https://github.com/adafruit/DHT-sensor-library) | `last`
 U8g2lib - 0.96" oled| [ARDUINO LIB](https://www.arduinolibraries.info/libraries/u8g2 ) | `U8g2-2.26.14`
 OneWire | [ARDUINO LIB](https://www.arduinolibraries.info/libraries/one-wire) | `OneWire-2.3.5`
 DallasTemperature| [GIT](https://github.com/milesburton/Arduino-Temperature-Control-Library) | `last`
+Adafruit_HTU21DF| [GIT](https://github.com/adafruit/Adafruit_HTU21DF_Library) | `last`
+DallasTemperature| [GIT](https://github.com/milesburton/Arduino-Temperature-Control-Library) | `last`
+Adafruit_HTU21DF [GIT](https://github.com/adafruit/Adafruit_HTU21DF_Library) | `last`
+Adafruit_APDS9960| [GIT](https://github.com/adafruit/Adafruit_APDS9960) | `last`
+Adafruit_Sensor| [ARDUINO LIB](Instal from library "Adafruit Unified Sensor" by Adafruit) | `1.0.2`
+Adafruit_BMP085_U| [GIT](https://github.com/adafruit/Adafruit_BMP085_Unified) | `last`
