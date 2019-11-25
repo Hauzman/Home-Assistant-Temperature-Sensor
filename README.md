@@ -1,5 +1,5 @@
-<p align="center">
-![](.github/home-assistant.png)
+
+![](.github/loading-screen.gif)
 
 
 # Home Assistant 
