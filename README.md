@@ -12,31 +12,31 @@
 
 **It can be integrated in Home Assistant.**
 
-## Hardware  <a name="id3"></a>
+# Hardware  <a name="id3"></a>
 
 The PCB was ordered from JLCPC 
-- https://jlcpcb.com
+- **https://jlcpcb.com**
 
 You can find the link also the EasyEDA File
 
-- https://easyeda.com/tiraalexandru/DHT-Oled-tmp-sensor
+- **https://easyeda.com/tiraalexandru/DHT-Oled-tmp-sensor**
 
-PCB Top                      |  PCB_Bottom   
+**PCB Top**                      |  **PCB_Bottom**   
 :---------------------------:|:-------------------------------------:
 <img src=".github/PCB.PNG">|  <img align="right" src=".github/PCB_Bottom.PNG">
 
 
-## BOM <a name="id3"></a>
+# BOM <a name="id3"></a>
  
- Name | Designator | Quantity
+ **Name** | **Designator** | **Quantity**
 :---: | :--------: | --------:
 096"  |OLED-SSD1306|1
 WEMOS D1 MINI |WEMOS D1 MINI V2.3.0 1.74MM|1
 DHT22|U1|1
 
-## Library Needed <a name="id3"></a>
-Name | Link | Version 
-:---: | :---: | ---:
+# Library Needed <a name="id3"></a>
+**Name** | **Link** | **Version** 
+:------: | :------: | -----------:
 NTPClient | [GIT](https://github.com/arduino-libraries/NTPClient) |**`latest`**
 ESP8266WebServer | [GIT](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer)| **`latest`**
 WiFiManager | [GIT](https://github.com/tzapu/WiFiManager) | **`latest`**
