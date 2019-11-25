@@ -1,4 +1,5 @@
-<p align="center">(.github/loading-screen.gif)
+<p align="center">![MagicMirror²: The open source modular smart mirror platform. ](.github/loading-screen.gif)
+  (.github/loading-screen.gif)
 
 
 # Home Assistant 
