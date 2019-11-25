@@ -1,2 +1,2 @@
-# Temperature_Sensor_with_DHT22_-_Oled_0.69-
+# Temperature_Sensor_with_Oled_0.69-
 PCB
