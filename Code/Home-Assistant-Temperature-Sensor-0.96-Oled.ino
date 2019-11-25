@@ -73,27 +73,30 @@ The GPIO2 pin is connected to two things on the Hauzman Thermometer:
 #include <NTPClient.h>            //https://github.com/arduino-libraries/NTPClient
 #include <ESP8266WebServer.h>     //https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer
 #include <WiFiManager.h>          //https://github.com/tzapu/WiFiManager
-
 #include <ArduinoJson.h>          //https://github.com/bblanchon/ArduinoJson
-
 #include <PubSubClient.h>         //https://github.com/knolleary/pubsubclient
-
 #include <MD5Builder.h>
+#include <Wire.h>
+
+*******************************************************************************************
 // For DHT22 temperature and humidity sensor
 #include <DHT.h>    //https://github.com/adafruit/DHT-sensor-library
+*******************************************************************************************
 // For OLED display
 #include <U8g2lib.h> //https://www.arduinolibraries.info/libraries/u8g2 ver.U8g2-2.26.14
-#include <Wire.h>
+
+*******************************************************************************************
 // For DS18B20 (waterproof) temperature sensor
 #include <OneWire.h>            //https://www.arduinolibraries.info/libraries/one-wire ver OneWire-2.3.5
 #include <DallasTemperature.h>  //https://github.com/milesburton/Arduino-Temperature-Control-Library
 #include "Adafruit_HTU21DF.h"   //https://github.com/adafruit/Adafruit_HTU21DF_Library
 #include "Adafruit_APDS9960.h"  //https://github.com/adafruit/Adafruit_APDS9960
+*******************************************************************************************
 // For BMP180
 #include <Adafruit_Sensor.h>    // Instal from library "Adafruit Unified Sensor" by Adafruit (version 1.0.2)
 #include <Adafruit_BMP085_U.h>  //https://github.com/adafruit/Adafruit_BMP085_Unified
 
-
+*******************************************************************************************
 WiFiUDP ntpUDP;
 //NTPClient timeClient(ntpUDP);
 
@@ -102,12 +105,13 @@ NTPClient timeClient(ntpUDP, "europe.pool.ntp.org", 7200, 60000); // hare you ca
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
 Adafruit_BMP085_Unified bmp = Adafruit_BMP085_Unified(10085);
-
-// it use the GPIO pin
+*******************************************************************************************
+// DHT GPIO Setup
 #define DHTPIN  0 // Pin D3 on wemos D1,
 #define DHTTYPE DHT22
 DHT dht(DHTPIN, DHTTYPE);
 
+*******************************************************************************************
 #define ONE_WIRE_BUS 12 // Pin D6 on wemos D1
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
@@ -115,13 +119,13 @@ DallasTemperature sensors(&oneWire);
 Adafruit_HTU21DF htu = Adafruit_HTU21DF();
 
 Adafruit_APDS9960 apds;
-
+*******************************************************************************************
 //Configure supported I2C sensors
 const int sensorHTU21D =  0x40;
 const int sensorBH1750 = 0x23;
 const int sensorBMP180 = 0x77;
 const int i2cDisplayAddress = 0x3c;
-
+*******************************************************************************************
 // Configure pins
 const int pinAlarm = 16;
 const int pinButton = 0;
@@ -131,7 +135,7 @@ const long sensorInterval = 10000;
 
 unsigned long mqttConnectionPreviousMillis = millis();
 const long mqttConnectionInterval = 60000;
-
+*******************************************************************************************
 // Set temperature coefficient for calibration depending on an empirical research with
 // comparison to DS18B20 and other temperature sensors. You may need to adjust it for the
 // specfic DHT22 unit on your board
@@ -146,12 +150,12 @@ float dsTemperature = 0;
 float sensorTemperature = 0;
 float sensorHumidity = 0;
 uint16_t sensorAmbientLight = 0;
-
+*******************************************************************************************
 //define your default values here, if there are different values in config.json, they are overwritten.
 char mqtt_server[40] = "192.168.1.1";
 char mqtt_port[6] = "1883";
 char workgroup[32] = "workgroup";
-
+*******************************************************************************************
 // MQTT username and password
 char username[20] = "MQTT username";
 char password[20] = "MQTT Password";
@@ -162,20 +166,20 @@ char ha_name[32+1] = "homeassistant";        // Make sure the machineId fits.
 char ota_server[40];
 #endif
 char temp_scale[40] = "celsius";
-
+*******************************************************************************************
 // Set the temperature in Celsius or Fahrenheit
 // true - Celsius, false - Fahrenheit
 bool configTempCelsius = true;
 
-
+*******************************************************************************************
 // MD5 of chip ID.  If you only have a handful of thermometers and use
 // your own MQTT broker (instead of iot.eclips.org) you may want to
 // truncate the MD5 by changing the 32 to a smaller value.
 char machineId[32+1] = "";
-
+*******************************************************************************************
 //flag for saving data
 bool shouldSaveConfig = false;
-
+*******************************************************************************************
 // MQTT
 WiFiClient espClient;
 PubSubClient mqttClient(espClient);
@@ -190,7 +194,7 @@ char line3_topic[11 + sizeof(machineId)];
 char cmnd_temp_coefficient_topic[14 + sizeof(machineId)];
 char cmnd_ds_temp_coefficient_topic[20 + sizeof(machineId)];
 char cmnd_temp_format[16 + sizeof(machineId)];
-
+*******************************************************************************************
 // The display can fit 26 "i":s on a single line.  It will fit even
 // less of other characters.
 char mqtt_line1[26+1];
@@ -205,7 +209,7 @@ bool need_redraw = false;
 
 char stat_temp_coefficient_topic[14 + sizeof(machineId)];
 char stat_ds_temp_coefficient_topic[20 + sizeof(machineId)];
-
+*******************************************************************************************
 //callback notifying us of the need to save config
 void saveConfigCallback ()
 {
@@ -215,6 +219,7 @@ void saveConfigCallback ()
 
 void drawDisplay(const char *line1, const char *line2 = "", const char *line3 = "")
 {
+ *******************************************************************************************
     // Write on OLED display
     // Clear the internal memory
     u8g2.clearBuffer();
@@ -324,7 +329,7 @@ void checkDisplay()
 
 void setup()
 {
-    // put your setup code here, to run once:
+// put your setup code here, to run once:
     strcpy(mqtt_line1, "");
     strcpy(mqtt_line2, "");
     strcpy(mqtt_line3, "");
@@ -341,25 +346,25 @@ void setup()
     sensors.begin();
 
     delay(10);
-
-    //LED
+*******************************************************************************************
+//LED
     pinMode(pinAlarm, OUTPUT);
-    //Button
+//Button
     pinMode(pinButton, INPUT);
 
     waitForFactoryReset();
-
-    // Machine ID
+*******************************************************************************************
+// Machine ID
     calculateMachineId();
 
-    //read configuration from FS json
+//read configuration from FS json
     Serial.println("mounting FS...");
 
     if (SPIFFS.begin())
     {
         Serial.println("mounted file system");
         if (SPIFFS.exists("/config.json")) {
-            //file exists, reading and loading
+//file exists, reading and loading
             Serial.println("reading config file");
             File configFile = SPIFFS.open("/config.json", "r");
             if (configFile)
@@ -417,15 +422,15 @@ void setup()
         Serial.println("failed to mount FS");
     }
     //end read
-
+*******************************************************************************************
     // Set MQTT topics
     sprintf(line1_topic, "cmnd/%s/line1", machineId);
     sprintf(line2_topic, "cmnd/%s/line2", machineId);
     sprintf(line3_topic, "cmnd/%s/line3", machineId);
     sprintf(cmnd_temp_coefficient_topic, "cmnd/%s/tempcoef", machineId);
     sprintf(stat_temp_coefficient_topic, "stat/%s/tempcoef", machineId);
-    sprintf(cmnd_ds_temp_coefficient_topic, "cmnd/%s/water/tempcoef", machineId);
-    sprintf(stat_ds_temp_coefficient_topic, "stat/%s/water/tempcoef", machineId);
+    sprintf(cmnd_ds_temp_coefficient_topic, "cmnd/%s/DS18B20/tempcoef", machineId);
+    sprintf(stat_ds_temp_coefficient_topic, "stat/%s/DS18B20/tempcoef", machineId);
     sprintf(cmnd_temp_format, "cmnd/%s/tempformat", machineId);
 #ifdef OTA_UPGRADES
     sprintf(cmnd_update_topic, "cmnd/%s/update", machineId);
@@ -450,11 +455,11 @@ void setup()
     char htmlMachineId[200];
     sprintf(htmlMachineId,"<p style=\"color: red;\">Machine ID:</p><p><b>%s</b></p><p>Copy and save the machine ID because you will need it to control the device.</p>", machineId);
     WiFiManagerParameter custom_text_machine_id(htmlMachineId);
-
+*******************************************************************************************
     //WiFiManager
     //Local intialization. Once its business is done, there is no need to keep it around
     WiFiManager wifiManager;
-
+*******************************************************************************************
     //set config save notify callback
     wifiManager.setSaveConfigCallback(saveConfigCallback);
 
@@ -472,26 +477,24 @@ void setup()
     wifiManager.addParameter(&custom_ota_server);
 #endif
     wifiManager.addParameter(&custom_text_machine_id);
-
-    //reset settings - for testing
-    //wifiManager.resetSettings();
-
-    //set minimu quality of signal so it ignores AP's under that quality
-    //defaults to 8%
-    //wifiManager.setMinimumSignalQuality();
-
-    //sets timeout until configuration portal gets turned off
-    //useful to make it all retry or go to sleep
-    //in seconds
+*******************************************************************************************
+//reset settings - for testing
+//wifiManager.resetSettings();
+//set minimu quality of signal so it ignores AP's under that quality
+//defaults to 8%
+//wifiManager.setMinimumSignalQuality();
+//sets timeout until configuration portal gets turned off
+//useful to make it all retry or go to sleep
+//in seconds
     wifiManager.setTimeout(300);
 
     digitalWrite(pinAlarm, HIGH);
     drawDisplay("Connecting...", WiFi.SSID().c_str());
-
-    //fetches ssid and pass and tries to connect
-    //if it does not connect it starts an access point with the specified name
-    //here  "AutoConnectAP"
-    //and goes into a blocking loop awaiting configuration
+*******************************************************************************************
+//fetches ssid and pass and tries to connect
+//if it does not connect it starts an access point with the specified name
+//here  "AutoConnectAP"
+//and goes into a blocking loop awaiting configuration
     if (!wifiManager.autoConnect("Hauzman Thermometer", "")) // Here you can change the AP name 
     {
         digitalWrite(pinAlarm, LOW);
@@ -502,11 +505,11 @@ void setup()
         delay(5000);
     }
 
-    //if you get here you have connected to the WiFi
+//if you get here you have connected to the WiFi
     Serial.println("connected.....");
     digitalWrite(pinAlarm, LOW);
 
-    //read updated parameters
+ //read updated parameters
     strcpy(mqtt_server, custom_mqtt_server.getValue());
     strcpy(mqtt_port, custom_mqtt_port.getValue());
     strcpy(workgroup, custom_workgroup.getValue());
@@ -520,7 +523,7 @@ void setup()
     strcpy(ota_server, custom_ota_server.getValue());
 #endif
 
-    //save the custom parameters to FS
+ //save the custom parameters to FS
     if (shouldSaveConfig)
     {
         saveConfig();
@@ -531,11 +534,11 @@ void setup()
     drawDisplay("Connected!", "Local IP:", WiFi.localIP().toString().c_str());
     delay(2000);
 
-    // Sensors
+// Sensors
     htu.begin();
     bmp.begin();
 
-    // MQTT
+// MQTT
     Serial.print("MQTT Server: ");
     Serial.println(mqtt_server);
     Serial.print("MQTT Port: ");
@@ -543,7 +546,7 @@ void setup()
     // Print MQTT Username
     Serial.print("MQTT Username: ");
     Serial.println(username);
-    // Hide password from the log and show * instead
+ // Hide password from the log and show * instead
     char hiddenpass[20] = "";
     for (size_t charP=0; charP < strlen(password); charP++)
     {
@@ -665,17 +668,17 @@ void factoryReset()
             Serial.println("Disconnecting...");
             WiFi.disconnect();
 
-            // NOTE: the boot mode:(1,7) problem is known and only happens at the first restart after serial flashing.
+// NOTE: the boot mode:(1,7) problem is known and only happens at the first restart after serial flashing.
 
             Serial.println("Restarting...");
-            // Clean the file system with configurations
+// Clean the file system with configurations
             SPIFFS.format();
             // Restart the board
             ESP.restart();
         }
         else
         {
-            // Cancel reset to factory defaults
+// Cancel reset to factory defaults
             Serial.println("Reset to factory defaults cancelled.");
             digitalWrite(pinAlarm, LOW);
         }
@@ -777,7 +780,7 @@ void processMessageScale(const char* text)
         configTempCelsius = false;
         strcpy(temp_scale, "fahrenheit");
     }
-    // Force default sensor lines with the new format for temperature
+ // Force default sensor lines with the new format for temperature
     setDefaultSensorLines();
     need_redraw = true;
     // Save configurations to file
@@ -786,7 +789,7 @@ void processMessageScale(const char* text)
 
 void mqttCallback(char* topic, byte* payload, unsigned int length)
 {
-    // Convert received bytes to a string
+ // Convert received bytes to a string
     char text[length + 1];
     snprintf(text, length + 1, "%s", payload);
 
@@ -835,10 +838,10 @@ void mqttCallback(char* topic, byte* payload, unsigned int length)
     {
         Serial.println("OTA request seen.\n");
         do_ota_upgrade(text);
-        // Any OTA upgrade will stop the mqtt client, so if the
-        // upgrade failed and we get here publishState() will fail.
-        // Just return here, and we will reconnect from within the
-        // loop().
+// Any OTA upgrade will stop the mqtt client, so if the
+// upgrade failed and we get here publishState() will fail.
+// Just return here, and we will reconnect from within the
+// loop().
         return;
     }
 #endif
@@ -862,16 +865,16 @@ void mqttReconnect()
     char clientId[18 + sizeof(machineId)];
     snprintf(clientId, sizeof(clientId), "hauzman-thermometer-%s", machineId);
 
-    // Loop until we're reconnected
+// Loop until we're reconnected
     for (int attempt = 0; attempt < 3; ++attempt)
     {
         Serial.print("Attempting MQTT connection...");
-        // Attempt to connect
+// Attempt to connect
         if (true == mqttClient.connect(clientId, username, password))
         {
             Serial.println("connected");
 
-            // Subscribe to MQTT topics
+// Subscribe to MQTT topics
             mqttClient.subscribe(line1_topic);
             mqttClient.subscribe(line2_topic);
             mqttClient.subscribe(line3_topic);
@@ -918,7 +921,7 @@ bool publishSensorDiscovery(const char *config_key,
     json["value_template"] = value_template;
 
     json["device"]["identifiers"] = machineId;
-    json["device"]["manufacturer"] = "Hauzman Alexandru";
+    json["device"]["manufacturer"] = "";
     json["device"]["model"] = "Hauzman Thermometer";
     json["device"]["name"] = ha_name;
     json["device"]["sw_version"] = ESP.getSketchMD5();
@@ -979,10 +982,10 @@ void publishState()
 
     if (0 < sensors.getDeviceCount())
     {
-        publishSensorDiscovery("watertemp",
+        publishSensorDiscovery("DS18B20temp",
                                "temperature",
-                               "Water Temp",
-                               "/water/temperature",
+                               "DS18B20 Temp",
+                               "/DS18B20/temperature",
                                "°C",
                                "{{ value_json.temperature }}");
     }
@@ -1020,7 +1023,7 @@ bool isSensorAvailable(int sensorAddress)
 
 void handleHTU21D()
 {
-    // Check if temperature has changed
+// Check if temperature has changed
     const float tempTemperature = htu.readTemperature();
     if (1 <= abs(tempTemperature - sensorTemperature))
     {
@@ -1029,11 +1032,11 @@ void handleHTU21D()
         Serial.print("Temperature: ");
         Serial.println(formatTemperature(sensorTemperature));
 
-        // Publish new temperature value through MQTT
+// Publish new temperature value through MQTT
         publishSensorData("temperature", "temperature", convertTemperature(sensorTemperature));
     }
 
-    // Check if humidity has changed
+// Check if humidity has changed
     const float tempHumidity = htu.readHumidity();
     if (1 <= abs(tempHumidity - sensorHumidity))
     {
@@ -1043,7 +1046,7 @@ void handleHTU21D()
         Serial.print(sensorHumidity);
         Serial.println("%");
 
-        // Publish new humidity value through MQTT
+// Publish new humidity value through MQTT
         publishSensorData("humidity", "humidity", sensorHumidity);
     }
 }
@@ -1057,10 +1060,10 @@ void sensorWriteData(int i2cAddress, uint8_t data)
 
 void handleBH1750()
 {
-    //Wire.begin();
-    // Power on sensor
+//Wire.begin();
+// Power on sensor
     sensorWriteData(sensorBH1750, 0x01);
-    // Set mode continuously high resolution mode
+// Set mode continuously high resolution mode
     sensorWriteData(sensorBH1750, 0x10);
 
     uint16_t tempAmbientLight;
@@ -1069,25 +1072,25 @@ void handleBH1750()
     tempAmbientLight = Wire.read();
     tempAmbientLight <<= 8;
     tempAmbientLight |= Wire.read();
-    // s. page 7 of datasheet for calculation
+// s. page 7 of datasheet for calculation
     tempAmbientLight = tempAmbientLight/1.2;
 
     if (1 <= abs(tempAmbientLight - sensorAmbientLight))
     {
-        // Print new brightness value
+// Print new brightness value
         sensorAmbientLight = tempAmbientLight;
         Serial.print("Light: ");
         Serial.print(tempAmbientLight);
         Serial.println("Lux");
 
-        // Publish new brightness value through MQTT
+// Publish new brightness value through MQTT
         publishSensorData("light", "light", sensorAmbientLight);
     }
 }
 
 void detectGesture()
 {
-    //read a gesture from the device
+//read a gesture from the device
     const uint8_t gestureCode = apds.readGesture();
     // Skip if gesture has not been detected
     if (0 == gestureCode)
@@ -1112,7 +1115,8 @@ void detectGesture()
     }
     Serial.print("Gesture: ");
     Serial.println(gesture);
-    // Publish the detected gesture through MQTT
+ 
+// Publish the detected gesture through MQTT
     publishSensorData("gesture", "gesture", gesture);
 }
 
@@ -1122,7 +1126,8 @@ void handleBMP()
   bmp.getEvent(&event);
   if (!event.pressure)
   {
-    // BMP180 sensor error
+
+// BMP180 sensor error
     return;
   }
   Serial.print("BMP180 Pressure: ");
@@ -1132,7 +1137,7 @@ void handleBMP()
   bmp.getTemperature(&temperature);
   Serial.print("BMP180 Temperature: ");
   Serial.println(formatTemperature(temperature));
-  // For accurate results replace SENSORS_PRESSURE_SEALEVELHPA with the current SLP
+// For accurate results replace SENSORS_PRESSURE_SEALEVELHPA with the current SLP
   float seaLevelPressure = SENSORS_PRESSURE_SEALEVELHPA;
   float altitude;
   altitude = bmp.pressureToAltitude(seaLevelPressure, event.pressure, temperature);
@@ -1140,7 +1145,7 @@ void handleBMP()
   Serial.print(altitude);
   Serial.println(" m");
 
-  // Publish new pressure values through MQTT
+// Publish new pressure values through MQTT
   publishSensorData("BMPpressure", "BMPpressure", event.pressure);
   publishSensorData("BMPtemperature", "BMPtemperature", convertTemperature(temperature));
   publishSensorData("BMPaltitude", "BMPaltitude", altitude);
@@ -1189,10 +1194,10 @@ void setDefaultSensorLines()
 
 void loop()
 {
-    // put your main code here, to run repeatedly:
+// put your main code here, to run repeatedly:
     mqttClient.loop();
 
-    // Reconnect if there is an issue with the MQTT connection
+// Reconnect if there is an issue with the MQTT connection
     const unsigned long mqttConnectionMillis = millis();
     if ( (false == mqttClient.connected()) && (mqttConnectionInterval <= (mqttConnectionMillis - mqttConnectionPreviousMillis)) )
     {
@@ -1200,7 +1205,7 @@ void loop()
         mqttReconnect();
     }
 
-    // Handle gestures at a shorter interval
+// Handle gestures at a shorter interval
     if (isSensorAvailable(APDS9960_ADDRESS))
     {
         detectGesture();
@@ -1212,7 +1217,7 @@ void loop()
         sensorPreviousMillis = currentMillis;
         handleSensors();
 
-        // Read temperature and humidity from DHT22/AM2302
+// Read temperature and humidity from DHT22/AM2302
         float temp = dht.readTemperature();
         float humidity = dht.readHumidity();
 
@@ -1223,7 +1228,7 @@ void loop()
 
         if (!isnan(humidity) && !isnan(temp))
         {
-            // Adjust temperature depending on the calibration coefficient
+// Adjust temperature depending on the calibration coefficient
             temp = temp*temperatureCoef;
 
             dhtTemperature = temp;
@@ -1247,8 +1252,8 @@ void loop()
             float wtemp = sensors.getTempCByIndex(0);
             wtemp = wtemp * dsTemperatureCoef;
             dsTemperature = wtemp;
-            publishSensorData("water/temperature", "temperature", convertTemperature(wtemp));
-            sensor_line3 = "Water " + formatTemperature(dsTemperature);
+            publishSensorData("DS18B20/temperature", "temperature", convertTemperature(wtemp));
+            sensor_line3 = "DS18B20 " + formatTemperature(dsTemperature);
             Serial.println(sensor_line3);
         }
         else
@@ -1288,6 +1293,6 @@ void loop()
         need_redraw = false;
     }
 
-    // Press and hold the button to reset to factory defaults
+// Press and hold the button to reset to factory defaults
     factoryReset();
 }
