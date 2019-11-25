@@ -1,4 +1,5 @@
-<p align="center">![header image](.github/loading-screen.gif)
+<p align="center">
+![header image](https://github.com/Hauzman/Home-Assistant-Temperature-Sensor-/blob/master/.github/loading-screen.gif)
 
 
 # Home Assistant 
