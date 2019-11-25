@@ -1,5 +1,4 @@
-
-![](.github/loading-screen.gif)
+                                            ![](.github/loading-screen.gif)
 
 
 # Home Assistant 
