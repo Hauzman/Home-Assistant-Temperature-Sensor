@@ -1,6 +1,6 @@
 <p align="center">
 ![header image](https://github.com/Hauzman/Home-Assistant-Temperature-Sensor-/blob/master/.github/loading-screen.gif)
-
+![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
 
 # Home Assistant 
 
