@@ -14,8 +14,12 @@ It can be integrated in Home Assistant.
 
 ## Hardware  <a name="id3"></a>
 
-The PCB was ordered from JLCPC https://jlcpcb.com/?gclid=CjwKCAiAlO7uBRANEiwA_vXQ-35hcp3xKChydf49EQohApTqelOQonQMeVGZvXwISRCxES6znICpXRoCjYYQAvD_BwE
+The PCB was ordered from JLCPC 
+- https://jlcpcb.com
 
+You can find the link also the EasyEDA File
+
+- https://easyeda.com/tiraalexandru/DHT-Oled-tmp-sensor
 
 PCB            |  PCB_Bottom
 :-------------------------:|:-------------------------:
