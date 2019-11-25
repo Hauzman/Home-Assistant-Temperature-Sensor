@@ -1,4 +1,4 @@
-![MagicMirror²: The open source modular smart mirror platform. ](.github/home-assistant.png)
+![MagicMirror²: The open source modular smart mirror platform. ](.github/loading-screen.gif)
 
 
 # Home Assistant 
