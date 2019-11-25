@@ -1,10 +1,8 @@
 <p align="center">
-
 <img src=".github/loading-screen.gif">
-
 </p>
 
-# Home Assistant 
+# Home Assistant - TEMPERATURE SENSOR
 
 **Temperature_Sensor_with_Oled_0.69"**
 
@@ -14,7 +12,16 @@
 
 It can be integrated in Home Assistant.
 
-The following properties can be configured:
+## Hardware  <a name="id3"></a>
+
+The PCB was ordered from JLCPC https://jlcpcb.com/?gclid=CjwKCAiAlO7uBRANEiwA_vXQ-35hcp3xKChydf49EQohApTqelOQonQMeVGZvXwISRCxES6znICpXRoCjYYQAvD_BwE
+
+
+PCB            |  PCB_Bottom
+:-------------------------:|:-------------------------:
+<img src=".github/PCB.PNG">|  <img align="right" src=".github/PCB_Bottom.PNG">
+
+
 
 ## Library needed  <a name="id3"></a>
   
