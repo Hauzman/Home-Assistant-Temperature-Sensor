@@ -1,4 +1,4 @@
-![Home_Assistant:]  (.github/loading-screen.gif)
+<p align="center">![Home_Assistant:]  (.github/loading-screen.gif)
 
 
 # Home Assistant 
