@@ -98,7 +98,8 @@ U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
 Adafruit_BMP085_Unified bmp = Adafruit_BMP085_Unified(10085);
 
-#define DHTPIN  0 // Pin D3 on wemos D1
+// it use the GPIO pin
+#define DHTPIN  0 // Pin D3 on wemos D1,
 #define DHTTYPE DHT22
 DHT dht(DHTPIN, DHTTYPE);
 
