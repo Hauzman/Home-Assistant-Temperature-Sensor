@@ -30,6 +30,6 @@ DallasTemperature| [GIT](https://github.com/milesburton/Arduino-Temperature-Cont
 Adafruit_HTU21DF| [GIT](https://github.com/adafruit/Adafruit_HTU21DF_Library) | `last`
 DallasTemperature| [GIT](https://github.com/milesburton/Arduino-Temperature-Control-Library) | `last`
 Adafruit_HTU21DF [GIT](https://github.com/adafruit/Adafruit_HTU21DF_Library) | `last`
-Adafruit_APDS9960| [GIT](https://github.com/adafruit/Adafruit_APDS9960) | `last`
+Adafruit_APDS9960|[GIT](https://github.com/adafruit/Adafruit_APDS9960) | `last`
 Adafruit_Sensor| Instal from library "Adafruit Unified Sensor" by Adafruit | `1.0.2`
 Adafruit_BMP085_U| [GIT](https://github.com/adafruit/Adafruit_BMP085_Unified) | `last`
