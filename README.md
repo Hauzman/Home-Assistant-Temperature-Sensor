@@ -1,6 +1,8 @@
 ![MagicMirror²: The open source modular smart mirror platform. ](.github/home-assistant.png)
 
-home-assistant.png
+
+# Home Assistant 
+
 **Temperature_Sensor_with_Oled_0.69"**
 
 **This is PCB for a small temperature senzor with a 0.96" oled display.**
