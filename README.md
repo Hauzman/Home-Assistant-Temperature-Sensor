@@ -21,15 +21,21 @@ You can find the link also the EasyEDA File
 
 - https://easyeda.com/tiraalexandru/DHT-Oled-tmp-sensor
 
-PCB            |  PCB_Bottom
-:-------------------------:|:-------------------------:
+PCB Top                      |  PCB_Bottom   
+:---------------------------:|:-------------------------------------:
 <img src=".github/PCB.PNG">|  <img align="right" src=".github/PCB_Bottom.PNG">
 
+## Hardware  <a name="id3"></a>
 
+## BOM <a name="id3"></a>
+ 
+ Name | Designator | Quantity
+:---: | :--------: | --------:
+096"  |OLED-SSD1306|1
+WEMOS D1 MINI |WEMOS D1 MINI V2.3.0 1.74MM|1
+DHT22|U1|1
 
-## Library needed  <a name="id3"></a>
-  
-
+## Library Needed <a name="id3"></a>
 Name | Link | Version 
 :---: | :---: | ---:
 NTPClient | [GIT](https://github.com/arduino-libraries/NTPClient) |**`latest`**
