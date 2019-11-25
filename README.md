@@ -25,7 +25,7 @@ Arduino Json | [ARDUINO IDE](https://arduinojson.org) |**`5.*`**
 PubSubClient | [GIT](https://github.com/knolleary/pubsubclient)| **`latest**`
 DHT | [GIT](https://github.com/adafruit/DHT-sensor-library) | **`latest`**
 U8g2lib - 0.96" oled| [ARDUINO LIB](https://www.arduinolibraries.info/libraries/u8g2 ) | **`U8g2-2.26.14`**
-OneWire | [ARDUINO LIB](https://www.arduinolibraries.info/libraries/one-wire) | **`OneWire-2.3.5`
+OneWire | [ARDUINO LIB](https://www.arduinolibraries.info/libraries/one-wire) | **`OneWire-2.3.5`**
 DallasTemperature| [GIT](https://github.com/milesburton/Arduino-Temperature-Control-Library) | **`latest`**
 Adafruit_HTU21DF| [GIT](https://github.com/adafruit/Adafruit_HTU21DF_Library) | **`latest`**
 DallasTemperature| [GIT](https://github.com/milesburton/Arduino-Temperature-Control-Library) | **`latest`**
