@@ -40,7 +40,7 @@ Name | Link | Version
 NTPClient | [GIT](https://github.com/arduino-libraries/NTPClient) |**`latest`**
 ESP8266WebServer | [GIT](https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer)| **`latest`**
 WiFiManager | [GIT](https://github.com/tzapu/WiFiManager) | **`latest`**
-Arduino Json | [ARDUINO IDE](https://arduinojson.org) |**`5.*`**
+Arduino Json | [ARDUINO IDE](https://arduinojson.org) |**`6.x.`**
 PubSubClient | [GIT](https://github.com/knolleary/pubsubclient)| **`2.7.*`**
 DHT | [GIT](https://github.com/adafruit/DHT-sensor-library) | **`latest`**
 U8g2lib - 0.96" oled| [ARDUINO LIB](https://www.arduinolibraries.info/libraries/u8g2 ) | **`U8g2-2.26.14`**
