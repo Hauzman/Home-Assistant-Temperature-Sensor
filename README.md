@@ -1,6 +1,8 @@
+<p align="center">
 
+<img src=".github/loading-screen.gif">
 
-<img align="center" src=".github/loading-screen.gif">
+</p>
 
 # Home Assistant 
 
