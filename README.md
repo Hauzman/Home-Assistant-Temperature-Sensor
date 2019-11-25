@@ -1,4 +1,4 @@
-(.github/home-assistant.png)
+![MagicMirror²: The open source modular smart mirror platform. ](.github/home-assistant.png)
 
 home-assistant.png
 **Temperature_Sensor_with_Oled_0.69"**
