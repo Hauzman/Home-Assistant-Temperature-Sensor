@@ -35,6 +35,7 @@ WEMOS D1 MINI |WEMOS D1 MINI V2.3.0 1.74MM|1
 DHT22|U1|1
 
 # Library Needed <a name="id3"></a>
+- ### I have uploade the library I used in the "libraries" folder in zip format
 **Name** | **Link** | **Version** 
 :------: | :------: | -----------:
 NTPClient | [GIT](https://github.com/arduino-libraries/NTPClient) |**`3.2.0`**
