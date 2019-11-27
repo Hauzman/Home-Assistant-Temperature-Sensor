@@ -58,4 +58,4 @@ ESP8266HTTPClient| [GIT](https://github.com/esp8266/Arduino/blob/master/librarie
 ESP8266httpUpdate| [GIT](https://github.com/Links2004/Arduino/tree/esp8266/hardware/esp8266com/esp8266/libraries/ESP8266httpUpdate) | **`1.2`**
 ESP8266WiFi| Instal from library | **`1.0`**
 SPI| [ARDUINO](http://arduino.cc/en/Reference/SPI) | **`1.0`**
-SPI| [ARDUINO](http://arduino.cc/en/Reference/Wire) | **`1.0`**
+Wire| [ARDUINO](http://arduino.cc/en/Reference/Wire) | **`1.0`**
