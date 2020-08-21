@@ -47,8 +47,8 @@ PubSubClient | [GIT](https://github.com/knolleary/pubsubclient)| **`2.7`**
 DHT | [GIT](https://github.com/adafruit/DHT-sensor-library) | **`1.3.4`**
 U8g2lib - 0.96" oled| [ARDUINO LIB](https://www.arduinolibraries.info/libraries/u8g2 ) | **`U8g2-2.23.18`**
 OneWire | [ARDUINO LIB](https://www.arduinolibraries.info/libraries/one-wire) | **`OneWire-2.3.5`**
-DallasTemperature| [GIT](https://github.com/milesburton/Arduino-Temperature-Control-Library) | **`3.8.0`**
-Adafruit_HTU21DF| [GIT](https://github.com/adafruit/Adafruit_HTU21DF_Library) | **`1.02`**
+//DallasTemperature| [GIT](https://github.com/milesburton/Arduino-Temperature-Control-Library) | **`3.8.0`**
+//Adafruit_HTU21DF| [GIT](https://github.com/adafruit/Adafruit_HTU21DF_Library) | **`1.02`**
 DallasTemperature| [GIT](https://github.com/milesburton/Arduino-Temperature-Control-Library) | **`latest`**
 Adafruit_HTU21DF| [GIT](https://github.com/adafruit/Adafruit_HTU21DF_Library) | **`latest`**
 Adafruit_APDS9960|[GIT](https://github.com/adafruit/Adafruit_APDS9960) | **`1.1.1`**
