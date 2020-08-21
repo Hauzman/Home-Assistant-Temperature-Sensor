@@ -38,15 +38,15 @@ SOFTWARE.
  MQTT setup
 ******************************/
 //define your default values here, if there are different values in config.json, they are overwritten.
-char mqtt_server[40] = "192.168.1.110";
+char mqtt_server[40] = "192.168.1.xxx";
 char mqtt_port[6] = "1883";
 char workgroup[32] = "workgroup";
 
 /******************************
  MQTT username and password
 ******************************/
-char username[20] = "mqtt";          // Here you put the username what you define in the HomeAssistant MQTT 
-char password[20] = "Bubulina1";          // Here you put the password what you define in the HomeAssistant MQTT 
+char username[20] = "";          // Here you put the username what you define in the HomeAssistant MQTT 
+char password[20] = "";          // Here you put the password what you define in the HomeAssistant MQTT 
 #ifdef HOME_ASSISTANT_DISCOVERY
 char ha_name[32+1] = "";         // Make sure the machineId fits.for example "homeassistant"
 #endif
